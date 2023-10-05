@@ -30,6 +30,8 @@
     ?>
 
     <script>
+        let intervalo;
+
         // Função para atualizar o contador regressivo
         function atualizarContador(tempo) {
             let contador = tempo;
@@ -46,7 +48,8 @@
             };
 
             atualizacao(); // Atualizar imediatamente ao carregar a página
-            const intervalo = setInterval(atualizacao, 1000);
+            clearInterval(intervalo); // Parar o intervalo anterior (se houver)
+            intervalo = setInterval(atualizacao, 1000);
         }
 
         // Carregar o contador regressivo com o valor padrão
@@ -67,3 +70,8 @@
     </script>
 </body>
 </html>
+
+
+
+
+
