@@ -24,9 +24,18 @@
     }
     
     // Exibe o hostname e o endereço IP do servidor
-    $serverInfo = getServerInfo();
-    echo "<p>O hostname do servidor é: {$serverInfo['hostname']}</p>";
-    echo "<p>O endereço IP do servidor é: {$serverInfo['server_ip']}</p>";
+    function exibirServerInfo() {
+        $serverInfo = getServerInfo();
+        echo "<p>O hostname do servidor é: {$serverInfo['hostname']}</p>";
+        echo "<p>O endereço IP do servidor é: {$serverInfo['server_ip']}</p>";
+    }
+    
+    // Se o cookie "acessou_servidor" não existir, significa que é a primeira vez que o servidor está sendo acessado
+    if (!isset($_COOKIE['acessou_servidor'])) {
+        echo '<p style="color: blue;">Servidor Novo</p>';
+        // Define o cookie para indicar que o servidor foi acessado
+        setcookie('acessou_servidor', 'true', time() + 365 * 24 * 60 * 60); // Valerá por 1 ano
+    }
     ?>
 
     <script>
@@ -52,15 +61,29 @@
             intervalo = setInterval(atualizacao, 1000);
         }
 
-        // Carregar o contador regressivo com o valor do cookie, se disponível
+        // Carregar o contador regressivo com o valor do cookie de tempo, se disponível
         let tempoAtualizacao = parseInt(getCookie('tempoAtualizacao')) || 30;
         document.getElementById('tempoAtualizacao').value = tempoAtualizacao;
         atualizarContador(tempoAtualizacao);
+
+        // Carregar o valor do hostname e do endereço IP dos cookies, se disponíveis
+        let hostname_cookie = getCookie('hostname');
+        let server_ip_cookie = getCookie('server_ip');
+        document.getElementById('tempoAtualizacao').value = tempoAtualizacao;
+        document.getElementById('hostname').value = hostname_cookie;
+        document.getElementById('server_ip').value = server_ip_cookie;
 
         // Adicionar evento de clique no botão "Salvar"
         document.getElementById('salvar').addEventListener('click', function () {
             tempoAtualizacao = parseInt(document.getElementById('tempoAtualizacao').value) || 30;
             setCookie('tempoAtualizacao', tempoAtualizacao, 365); // Armazenar o valor em um cookie
+            
+            // Obter e armazenar os valores do hostname e do endereço IP definidos pelo usuário
+            let hostname = document.getElementById('hostname').value;
+            let server_ip = document.getElementById('server_ip').value;
+            setCookie('hostname', hostname, 365);
+            setCookie('server_ip', server_ip, 365);
+            
             atualizarContador(tempoAtualizacao);
         });
 
@@ -69,6 +92,14 @@
             tempoAtualizacao = 30; // Valor padrão
             document.getElementById('tempoAtualizacao').value = tempoAtualizacao;
             setCookie('tempoAtualizacao', tempoAtualizacao, 365); // Armazenar o valor em um cookie
+            
+            // Restaurar os valores padrão de hostname e endereço IP
+            let serverInfo = <?php echo json_encode(getServerInfo()); ?>;
+            document.getElementById('hostname').value = serverInfo.hostname;
+            document.getElementById('server_ip').value = serverInfo.server_ip;
+            setCookie('hostname', serverInfo.hostname, 365);
+            setCookie('server_ip', serverInfo.server_ip, 365);
+            
             atualizarContador(tempoAtualizacao);
         });
 
