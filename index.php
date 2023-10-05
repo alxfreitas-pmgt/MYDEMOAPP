@@ -1,3 +1,4 @@
 <?php
-print "O hostane deste aplicativo é  " gethostname() "\n";
+# print "O hostane deste aplicativo é  " gethostname() "\n";
+echo gethostname();
 ?>
