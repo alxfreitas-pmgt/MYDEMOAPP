@@ -4,7 +4,7 @@
     <title>Atualização Automática</title>
 </head>
 <body>
-    <h1>Informações do Servidor</h1>
+    <h1>Hostname e Endereço IP do Servidor</h1>
     
     <div>
         <label for="tempoAtualizacao">Tempo de Atualização (segundos):</label>
@@ -81,23 +81,10 @@
         document.getElementById('tempoAtualizacao').value = tempoAtualizacao;
         atualizarContador(tempoAtualizacao);
 
-        // Carregar o valor do hostname e do endereço IP dos cookies, se disponíveis
-        let hostname_cookie = getCookie('hostname');
-        let server_ip_cookie = getCookie('server_ip');
-        document.getElementById('tempoAtualizacao').value = tempoAtualizacao;
-        document.getElementById('hostname').value = hostname_cookie;
-        document.getElementById('server_ip').value = server_ip_cookie;
-
         // Adicionar evento de clique no botão "Salvar"
         document.getElementById('salvar').addEventListener('click', function () {
             tempoAtualizacao = parseInt(document.getElementById('tempoAtualizacao').value) || 30;
             setCookie('tempoAtualizacao', tempoAtualizacao, 365); // Armazenar o valor em um cookie
-            
-            // Obter e armazenar os valores do hostname e do endereço IP definidos pelo usuário
-            let hostname = document.getElementById('hostname').value;
-            let server_ip = document.getElementById('server_ip').value;
-            setCookie('hostname', hostname, 365);
-            setCookie('server_ip', server_ip, 365);
             
             atualizarContador(tempoAtualizacao);
         });
@@ -107,13 +94,6 @@
             tempoAtualizacao = 30; // Valor padrão
             document.getElementById('tempoAtualizacao').value = tempoAtualizacao;
             setCookie('tempoAtualizacao', tempoAtualizacao, 365); // Armazenar o valor em um cookie
-            
-            // Restaurar os valores padrão de hostname e endereço IP
-            let serverInfo = <?php echo json_encode(getServerInfo()); ?>;
-            document.getElementById('hostname').value = serverInfo.hostname;
-            document.getElementById('server_ip').value = serverInfo.server_ip;
-            setCookie('hostname', serverInfo.hostname, 365);
-            setCookie('server_ip', serverInfo.server_ip, 365);
             
             atualizarContador(tempoAtualizacao);
         });
