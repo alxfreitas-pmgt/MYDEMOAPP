@@ -4,7 +4,7 @@
     <title>Atualização Automática</title>
 </head>
 <body>
-    <h1>Hostname e Endereço IP do Servidor</h1>
+    <h1>Informações do Servidor</h1>
     
     <div>
         <label for="tempoAtualizacao">Tempo de Atualização (segundos):</label>
