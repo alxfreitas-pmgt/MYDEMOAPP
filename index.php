@@ -33,13 +33,6 @@
         return array('hostname' => $hostname, 'server_ip' => $server_ip);
     }
     
-    // Exibe o hostname e o endereço IP do servidor
-    function exibirServerInfo() {
-        $serverInfo = getServerInfo();
-        echo "<p>O hostname do servidor é: {$serverInfo['hostname']}</p>";
-        echo "<p>O endereço IP do servidor é: {$serverInfo['server_ip']}</p>";
-    }
-    
     // Exibe o número de conexões simultâneas à aplicação
     echo "<p>Número de conexões simultâneas: {$_SESSION['num_conexoes']}</p>";
     
@@ -49,6 +42,15 @@
         // Define o cookie para indicar que o servidor foi acessado
         setcookie('acessou_servidor', 'true', time() + 365 * 24 * 60 * 60); // Valerá por 1 ano
     }
+    
+    // Obter informações do servidor
+    $serverInfo = getServerInfo();
+    $hostname = $serverInfo['hostname'];
+    $server_ip = $serverInfo['server_ip'];
+    
+    // Exibe o hostname e o endereço IP do servidor
+    echo "<p>O hostname do servidor é: $hostname</p>";
+    echo "<p>O endereço IP do servidor é: $server_ip</p>";
     ?>
 
     <script>
