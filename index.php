@@ -16,6 +16,16 @@
     <div id="contadorRegressivo"></div>
     
     <?php
+    // Iniciar ou retomar a sessão PHP
+    session_start();
+    
+    // Acompanhar o número de conexões simultâneas à aplicação usando a variável de sessão
+    if (!isset($_SESSION['num_conexoes'])) {
+        $_SESSION['num_conexoes'] = 1;
+    } else {
+        $_SESSION['num_conexoes']++;
+    }
+    
     // Função PHP para obter o hostname e o endereço IP do servidor
     function getServerInfo() {
         $hostname = gethostname();
@@ -29,6 +39,9 @@
         echo "<p>O hostname do servidor é: {$serverInfo['hostname']}</p>";
         echo "<p>O endereço IP do servidor é: {$serverInfo['server_ip']}</p>";
     }
+    
+    // Exibe o número de conexões simultâneas à aplicação
+    echo "<p>Número de conexões simultâneas: {$_SESSION['num_conexoes']}</p>";
     
     // Se o cookie "acessou_servidor" não existir, significa que é a primeira vez que o servidor está sendo acessado
     if (!isset($_COOKIE['acessou_servidor'])) {
