@@ -32,24 +32,25 @@
         function startConnections(url, numConnections, currentConnection) {
             if (currentConnection < numConnections) {
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'server.php', true);
+                xhr.open('POST', 'server.php', url, true);
                 xhrs.push(xhr);
 
-                xhr.onload = function() {
-                    var logEntry = document.createElement("p");
-                    logEntry.textContent = "Conexão " + (currentConnection + 1) + " - Status: " + xhr.status + " " + xhr.statusText;
-                    logContainer.appendChild(logEntry);
+               // xhr.onload = function() {
+               //     var logEntry = document.createElement("p");
+               //     logEntry.textContent = "Conexão " + (currentConnection + 1) + " - Status: " + xhr.status + " " + xhr.statusText;
+               //     logContainer.appendChild(logEntry);
 
-                    startConnections(url, numConnections, currentConnection + 1);
-                };
+               //     startConnections(url, numConnections, currentConnection + 1);
+               // };
 
-                xhr.onerror = function() {
-                    var logEntry = document.createElement("p");
-                    logEntry.textContent = "Conexão " + (currentConnection + 1) + " - Erro de conexão";
-                    logContainer.appendChild(logEntry);
+                //xhr.onerror = function() {
+                //    var logEntry = document.createElement("p");
+                //    logEntry.textContent = "Conexão " + (currentConnection + 1) + " - Erro de conexão";
+                //    logContainer.appendChild(logEntry);
 
-                    startConnections(url, numConnections, currentConnection + 1);
-                };
+                   // startConnections(url, numConnections, currentConnection + 1);
+                    //startConnections(url);
+               // };
 
                 xhr.send();
             } else {
@@ -86,7 +87,5 @@
         <button type="button" id="startBtn" onclick="startTest()">Iniciar Testes</button>
         <button type="button" id="stopBtn" onclick="stopTest()" disabled>Parar Testes</button>
     </form>
-
-    <div id="logContainer" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;"></div>
 </body>
 </html>
