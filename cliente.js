@@ -46,51 +46,34 @@ function atualizarContadorRegressivo(tempo) {
 }
 
 // Função para iniciar o teste de carga
-function iniciarTesteCarga() {
-    var tipoTeste = document.getElementById('tipoTeste').value;
-    var urlRemota = document.getElementById('urlRemota').value;
-    var quantidadeConexoes = parseInt(document.getElementById('quantidadeConexoes').value);
-
-    // Envie os parâmetros para o servidor usando AJAX
+function iniciarTeste(tipoTeste) {
+    // Enviar o tipo de teste ao servidor
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'teste_de_carga.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            var resposta = JSON.parse(xhr.responseText);
-            if (resposta.status === 'iniciado') {
-                // Teste de carga iniciado com sucesso
-                alert('Teste de carga iniciado!');
-            } else {
-                // O servidor retornou um erro
-                alert('Erro ao iniciar o teste de carga: ' + resposta.erro);
-            }
+            var resultado = JSON.parse(xhr.responseText);
+            exibirResultadoTeste(resultado);
         }
     };
-
-    xhr.send('tipoTeste=' + tipoTeste + '&urlRemota=' + urlRemota + '&quantidadeConexoes=' + quantidadeConexoes);
+    xhr.send('tipoTeste=' + tipoTeste);
 }
 
-// Quando o botão "Salvar" for clicado
-document.getElementById('salvarTempo').addEventListener('click', function () {
-    var tempo = parseInt(document.getElementById('tempoRefresh').value) || 30;
-    atualizarContadorRegressivo(tempo);
-});
-
-// Quando o botão "Redefinir" for clicado
-document.getElementById('redefinirTempo').addEventListener('click', function () {
-    document.getElementById('tempoRefresh').value = 30;
-    atualizarContadorRegressivo(30);
-});
+// Função para exibir o resultado do teste de carga
+function exibirResultadoTeste(resultado) {
+    // Lógica para exibir o resultado do teste, por exemplo, em uma área de log
+    var logArea = document.getElementById('log');
+    logArea.innerHTML = ''; // Limpar o conteúdo anterior da área de log
+    resultado.forEach(function (log) {
+        var logItem = document.createElement('div');
+        logItem.textContent = 'Origem: ' + log.origem + ', Destino: ' + log.destino + ', Porta Destino: ' + log.portaDestino + ', Status: ' + log.status;
+        logArea.appendChild(logItem);
+    });
+}
 
 // Quando o botão "Iniciar Teste" for clicado
 document.getElementById('iniciarTeste').addEventListener('click', function () {
-    iniciarTesteCarga();
+    var tipoTeste = document.querySelector('input[name="tipoTeste"]:checked').value;
+    iniciarTeste(tipoTeste);
 });
-
-// Chame a função de atualização inicialmente
-atualizarInformacoesSessao();
-
-// Chame a função de atualização a cada segundo (1000 ms)
-setInterval(atualizarInformacoesSessao, 1000);
