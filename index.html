@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações do Servidor</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <!-- Esta é uma aplicação de demonstração e teste de alta disponibilidade de containers com teste de carga para auto escalação de novos containers.
+         O desenvolvimento dessa aplicação foi realizado pelo ChatGPT em parceria com o arquiteto de soluções Alex Freitas. -->
+    <h1>Informações do Servidor</h1>
+    <p>Hostname: <span id="hostname"></span></p>
+    <p>IP: <span id="ip"></span></p>
+    <p>Número de Conexões: <span id="numConexoes"></span></p>
+    <p>Tempo de Atualização: <input type="text" id="tempoRefresh" value="30"> segundos</p>
+    <button id="salvarTempo" class="verde">Salvar</button>
+    <button id="redefinirTempo" class="vermelho">Redefinir</button>
+    <p>Contador Regressivo: <span id="contador-regressivo">30</span> segundos</p>
+    <h2>Teste de Carga</h2>
+    <label for="tipoTeste">Tipo de Teste:</label>
+    <select id="tipoTeste">
+        <option value="local">Local</option>
+        <option value="remoto">Remoto</option>
+    </select>
+    <br>
+    <label for="urlRemota">URL Remota:</label>
+    <input type="text" id="urlRemota">
+    <br>
+    <label for="quantidadeConexoes">Quantidade de Conexões:</label>
+    <input type="text" id="quantidadeConexoes">
+    <br>
+    <button id="iniciarTeste" class="verde">Iniciar Teste</button>
+    <button id="pararTeste" class="vermelho">Parar Teste</button>
+    <h3>Log de Conexões</h3>
+    <ul id="logConexoes">
+        <!-- Os registros de conexão serão adicionados aqui -->
+    </ul>
+    <script src="cliente.js"></script>
+</body>
+</html>
