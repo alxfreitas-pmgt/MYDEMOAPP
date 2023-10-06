@@ -32,7 +32,7 @@
         function startConnections(url, numConnections, currentConnection) {
             if (currentConnection < numConnections) {
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", url, true);
+                xhr.open('POST', 'server.php', true);
                 xhrs.push(xhr);
 
                 xhr.onload = function() {

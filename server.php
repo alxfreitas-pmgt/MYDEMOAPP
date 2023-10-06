@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 function getServerInfo() {
     $hostname = gethostname(); // Obtenha o hostname do servidor
     $ip = $_SERVER['SERVER_ADDR']; // Obtenha o endereço IP do servidor
-    $numConnections = 0; // Inicialize o número total de conexões (atualizado em tempo real)
+  //  $numConnections = 0; // Inicialize o número total de conexões (atualizado em tempo real)
 
     // Execute o comando para obter o número total de conexões aqui (atualizado em tempo real)
     // Substitua o comentário acima pelo comando real para obter o número de conexões

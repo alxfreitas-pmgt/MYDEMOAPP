@@ -26,11 +26,10 @@
             // Simula carga fazendo 20 conexões com o servidor local na porta 8080 usando cURL
             for ($i = 0; $i < 20; $i++) {
                 $ch = curl_init("http://localhost:8080");
-                curl_exec($ch);
+                -curl_exec($ch);
                 curl_close($ch);
             }
             echo "Carga simulada com sucesso!";
         }
-    ?>
-</body>
+ 
 </html>
