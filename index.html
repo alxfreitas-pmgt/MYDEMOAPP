@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste de Carga - Cliente</title>
+    <style>
+        .blue-message {
+            color: blue;
+        }
+    </style>
+    <script>
+        // Função para atualizar as informações do servidor a cada 1 segundo
+        function updateServerInfo() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "server.php", true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    document.getElementById("hostname").textContent = data.hostname;
+                    document.getElementById("ip").textContent = data.ip;
+                    document.getElementById("numConnections").textContent = data.numConnections;
+                }
+            };
+
+            xhr.send();
+        }
+
+        // Iniciar a atualização periódica a cada 1 segundo
+        setInterval(updateServerInfo, 1000);
+    </script>
+</head>
+<body>
+    <h1>Teste de Carga - Cliente</h1>
+    
+    <!-- Informações do servidor -->
+    <p>Hostname: <span id="hostname"></span></p>
+    <p>Endereço IP: <span id="ip"></span></p>
+    <p>Número Total de Conexões: <span id="numConnections"></span></p>
+</body>
+</html>
