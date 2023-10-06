@@ -18,7 +18,7 @@
                     var data = JSON.parse(xhr.responseText);
                     document.getElementById("hostname").textContent = data.hostname;
                     document.getElementById("ip").textContent = data.ip;
-                    document.getElementById("numConnections").textContent = data.numConnections;
+                   // document.getElementById("numConnections").textContent = data.numConnections;
                 }
             };
 
@@ -35,6 +35,6 @@
     <!-- Informações do servidor -->
     <p>Hostname: <span id="hostname"></span></p>
     <p>Endereço IP: <span id="ip"></span></p>
-    <p>Número Total de Conexões: <span id="numConnections"></span></p>
+    //<p>Número Total de Conexões: <span id="numConnections"></span></p>
 </body>
 </html>

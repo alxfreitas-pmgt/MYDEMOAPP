@@ -4,10 +4,7 @@
 // Função para iniciar conexões usando o comando cURL
 function startConnections($url) {
     for ($i = 0; $i < 20; $i++) {
-        // Execute o comando cURL para iniciar a conexão com a URL
-        // Substitua o comentário abaixo pelo comando real do cURL
-        // Certifique-se de configurar as opções do cURL conforme necessário.
-        // Exemplo de comando cURL: exec("curl -i -X GET $url");
+        exec("curl -i -X GET $url");
     }
 }
 
@@ -29,7 +26,7 @@ function getServerInfo() {
     return json_encode(array(
         "hostname" => $hostname,
         "ip" => $ip,
-        "numConnections" => $numConnections
+        //"numConnections" => $numConnections
     ));
 }
 
